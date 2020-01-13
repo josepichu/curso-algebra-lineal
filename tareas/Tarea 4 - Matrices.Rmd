@@ -1,0 +1,77 @@
+---
+title: "Tarea 4 - matrices"
+author: "jramirez"
+date: "11/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Consideremos las matrices A, B y C
+
+### Realizad las operaciones siguientes:
+### 1. A · B
+### 2. B · C
+### 3. Bt
+### 4. Bt · A
+### 5. Ct · Bt
+### rango de A
+### inversa de A
+### diagonal de A
+
+```{r}
+
+A = matrix(c(0,1,-2, 2, 3, -1, 1, -1, 5), ncol= 3, byrow = TRUE)
+B = matrix(c(1, -1, 2, 1, 2, -2, 2, -2, -1, 2, 1, 2), ncol = 4, byrow = TRUE)
+C = matrix(c(2, 0, 1, -4),  byrow = FALSE)
+A
+B
+C
+
+#1. A · B
+A%*%B
+### 2. B · C
+B%*%C
+### 3. Bt
+t(B)
+### 4. Bt · A
+t(B)%*%A
+### 5. Ct · Bt
+t(C)%*%t(B)
+### rango de A
+qr(A)$rank
+### inversa de A
+solve(A)
+round(solve(A)%*%A)
+### diagonal de A
+diag(A)
+
+```
+
+```{python}
+import numpy as np
+A = np.array([[0,1,-2],[2, 3, -1],[1, -1, 5]])
+B = np.array([[1, -1, 2, 1] , [2, -2, 2, -2], [-1, 2, 1, 2]])
+C = np.array([[2],[0],[1],[-4]])
+A
+B
+C
+
+#1. A · B
+A.dot(B)
+### 2. B · C
+B.dot(C)
+### 3. Bt
+A.transpose()
+### rango de A
+np.linalg.matrix_rank(A)
+### inversa de A
+np.linalg.inv(A)
+np.linalg.inv(A).dot(A)
+### diagonal de A
+np.diag(A)
+
+```
+
