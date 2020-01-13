@@ -1,0 +1,128 @@
+---
+title: "Tarea 1 - preliminares"
+author: "jramirez"
+date: "10/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, engine.path = list(octave = 'C:/Octave/Octave-5.1.0.0/mingw64/bin/octave-cli'))
+
+```
+
+#### Realiza las siguientes sumas a mano y comprueba tu respuesta en R, Python u Octave:
+### a. (2 + 3i) + (1 + i)
+### b. (1 + i) + (1 − i)
+### c. (x2 + x + 1) + (x − 1)
+
+### R
+```{r}
+# a
+z1 = complex(real = 2, imaginary = 3)
+z2 = complex(real = 1, imaginary = 1)
+z1 + z2
+
+# b
+z1 = 1 + 1i
+z2 = 1 - 1i
+#z1 = complex(real = 1, imaginary = 1)
+#z2 = complex(real = 1, imaginary = -1)
+z1 + z2
+
+#c
+library(polynom)
+p1 = polynomial(coef = c(1, 1, 1))
+p2 = polynomial(coef = c(-1, 1))
+p1+p2
+
+```
+
+### Phyton
+```{python}
+#a
+z1 = 2 + 3j
+z2 = 1 + 1j
+z1 + z2
+
+# b
+z1 = complex(1,1)
+z2 = complex(1, -1)
+z1 + z2
+
+# c
+import numpy
+r1 = numpy.poly1d([1,1,1])
+r2 = numpy.poly1d([1,-1])
+r1 + r2
+
+
+```
+
+### Octave
+```{octave}
+#a
+z1 = complex(2,3)
+z2 = complex(1,1)
+z1+z2
+
+#b
+z1 = complex(1,1)
+z2 = complex(1,-1)
+z1+z2
+
+#c
+r1 = polyout([1,1,1], 'x')
+r2 = polyout([1,-1], 'x')
+
+```
+
+#### Realiza los siguientes productos a mano y comprueba tu respuesta en R, Python u Octave:
+#### (2 + 3i) · (1 + i)
+#### (1 + i) · (1 − i)
+#### (x2 + x + 1) · (x − 1)
+#### (x + 1)2
+#### (x + 1) · (x − 1)
+
+### R
+```{r}
+
+#a
+z1 = 2 +3i
+z2 = 1 + 1i
+z1*z2
+
+Re(z1) # parte real
+Im(z1) # parte imaginaria
+Conj(z1) # conjugado
+Mod(z1) # modulo
+
+#b
+z1 = 1 + 1i
+z2 = 1 - 1i
+z1*z2
+
+#c 
+library(polynom)
+p1 = polynomial(coef = c(1, 1, 1))
+p2 = polynomial(coef = c(-1, 1))
+p1*p2
+
+#...etc
+
+```
+```{python}
+z1 = 2 + 3j
+z2 = 1 + 1j
+z1*z2
+
+import numpy
+r1 = numpy.poly1d([1,1,1])
+r2 = numpy.poly1d([1,-1])
+print(r1 * r2)
+
+```
+
+
+
+
