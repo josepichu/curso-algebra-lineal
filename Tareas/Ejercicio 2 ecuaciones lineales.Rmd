@@ -1,0 +1,33 @@
+---
+title: "Ejercicio - ecuaciones lineales"
+author: "jramirez"
+date: "13/1/2020"
+output: html_document
+---
+###Comprobad que, efectivamente, se trata de un sistema compatible determinado haciendo uso del
+Teorema de Rouché-Frobenius 
+### Calculad su solución
+```{r}
+library(matlib)
+A = rbind(c(4,2), c(1, -2), c(3, 4))
+b = c(3,2,1)
+Ab = cbind(A,b)
+
+showEqn(A,b)
+
+if (R(A) == R(Ab)) print("sistema compatible")
+if (R(A) == R(Ab) && R(A) == 2) print("sistema compatible determinado")
+
+Solve(A,b, fractions = TRUE)
+
+solutions = c(1, -1/2)
+
+A%*%solutions==b
+
+plotEqn(A,b)
+
+
+echelon(Ab, verbose = TRUE, fractions = TRUE)
+
+```
+

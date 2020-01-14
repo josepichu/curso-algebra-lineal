@@ -1,0 +1,151 @@
+---
+title: "Tarea 6 - ecuaciones y sistemas lineales"
+author: "jramirez"
+date: "14/1/2020"
+output: html_document
+---
+
+#### Primero, comprobar el tipo de sistema (compatible determinado, compatible indeterminado o incompatible) con R, Python y Octave.
+#### Después, en caso de haber solución, calcularla con R, Python y Octave. Finalmente, indicar la solución final junto con el procedimiento llevado a cabo.
+
+```{r}
+library(matlib)
+
+
+linearSystemType <- function(A, b) {
+
+  Ab = cbind(A,b)
+  
+  numVar = ncol(A)
+  
+  # ecuación
+  print('****** Ecuation **********')
+  showEqn(A,b)
+  print('')
+  
+  # rangos
+  print('****** System type **********')
+  print('rango de A ')
+  print(R(A))
+  print('rango de Ab ')
+  print(R(Ab))  
+  print('numero de variables de A ')
+  print(numVar) 
+  
+  if (R(A) != R(Ab)) systemType <- 'sistema incompatible'
+  if (R(A) == R(Ab)) systemType <- 'sistema compatible'
+  if (R(A) == R(Ab) && R(A) == numVar) systemType <- 'sistema compatible determinado'
+  if (R(A) == R(Ab) && R(A) != numVar) systemType <- 'sistema compatible indeterminado'
+  print(systemType)
+  print('')
+  
+  if (systemType != 'sistema incompatible') {
+    # inversa
+    print('****** Matriz Inversa **********')
+    if (nrow(A) == ncol(A)) {
+          print(solve(A))
+          print(round(solve(A)%*%A))
+    } else print('no es un matriz cuadrada')
+
+    print('')
+    
+    # soluciones
+    print('****** Solutions **********')
+    Solve(A,b, fractions = TRUE)
+    
+    if(systemType == 'sistema compatible determinado') {
+      solutions = solve(A,b)
+      print(solutions)
+      print(round(A%*%solutions) == b)
+    }
+    
+    print('')
+    #echelon(Ab, verbose = TRUE, fractions = TRUE)
+    
+    
+  } else print('no solutions')
+}
+```
+
+### Ejercicio 1
+```{r}
+
+  A = rbind(c(1, 2, -1, 1, 0, 10),
+               c(-1, -3, 0, 0, -1, 5),
+               c(0, -1, 3, -1, 0, 0),
+               c(17, 1, 0, 3, 5, -15),
+               c(0, -10, 0, -5, 3, 0),
+               c(-3, 1, 1, 1, -2, 2))
+  
+  b = c(0, 5, 5, 4, -21, 11)
+  
+  
+  linearSystemType(A, b)
+
+```
+
+### Ejercicio 2
+
+```{r}
+
+  A = rbind(c(-2, 2, -1, 1, 0, 4, 0),
+           c(-1, -3, 0, 0, -1, 5, -2),
+           c(0,-1,3,-1,0,0,0),
+           c(0,1,0,3,-2,1,4),
+           c(0,-3,0,-5,3,0,-2),
+           c(-3,1,1,1,-2,2,1)
+           )
+
+  b = c(5, 3, 5, 0, 5, 0)
+  
+ linearSystemType(A, b)
+```
+
+```{python}
+
+def linearSystemType(Ab):
+  A = Ab[:, :-1]
+  b = Ab[:, -1]
+  print('****** System type **********')
+  print('rango de A ')
+  print(np.linalg.matrix_rank(A))
+  print('rango de Ab ')
+  print(np.linalg.matrix_rank(Ab))  
+  print('numero de variables')
+  print(np.size(A,1))
+  
+  systemType = ''
+  
+  if (np.linalg.matrix_rank(A) != np.linalg.matrix_rank(Ab)): systemType = 'sistema incompatible'
+  elif (np.linalg.matrix_rank(A) == np.linalg.matrix_rank(Ab)): systemType = 'sistema compatible'
+  
+  if (np.linalg.matrix_rank(A) == np.linalg.matrix_rank(Ab) and np.linalg.matrix_rank(A) == np.size(A,1)): 
+    systemType = 'sistema compatible determinado'
+  if (np.linalg.matrix_rank(A) == np.linalg.matrix_rank(Ab) and np.linalg.matrix_rank(A) != np.size(A,1)): 
+    systemType = 'sistema compatible indeterminado'
+    
+  print(systemType)
+
+  np.linalg.solve(A,b)
+  
+import numpy as np
+
+Ab = np.array([[1, 2, -1, 1, 0, 10, 0], 
+          [-1, -3, 0, 0, -1, 5, 5],
+          [0, -1, 3, -1, 0, 0, 5],
+          [17, 1, 0, 3, 5, -15, 4],
+          [0, -10, 0, -5, 3, 0, -21],
+          [-3, 1, 1, 1, -2, 2, 11],
+          [-3, 1, 1, 1, -2, 2, 11]
+          ])
+
+from sympy import *     
+
+          
+linearSystemType(Ab)
+
+```
+
+
+
+
